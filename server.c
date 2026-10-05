@@ -180,9 +180,24 @@ int main(int argc, char *argv[]) {
         			snprintf(resposta, sizeof(resposta), "OK|4|19:30|22:00\n");
        				send(new_socket, resposta, strlen(resposta), 0);
 				} else {
-					send(new_socket,"ERR|ID no vàlid \n",32,0)
+					send(new_socket,"ERR|ID no vàlid \n",32,0);
 				}
-			}
+			} else if (strcmp (comando, "AFORAMENT")==0){
+				char *id_peli =strtok(NULL,"|");
+				if(id_peli != NULL){
+					if(strcmp(id_peli,"1")==0){
+						send(new_socket, "OK|1|Sala 1: 45/100 seients lliures\n",36,0);
+					}else if (strcmp(id_peli,"2")==0){
+						send(new_socket, "OK|2|Sala 2: 12/80 seients lliures\n",35,0);
+					}else if (strcmp(id_peli, "3")==0){
+						send(new_socket, "OK|3|Sala 3: 0/100 seients lliures (Agotat)\n",44,0);
+					}else if (strcmp(id_peli, "4")==0){
+						send(new_socket, "OK|4|Sala 4: 88/120 seients lliures\n",36,0);
+					}
+				}else {
+					send(new_socket, "ERR|Falta ID\n",13,0);
+				}
+			} 
 		}
 		
 
